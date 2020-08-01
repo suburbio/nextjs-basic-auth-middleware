@@ -45,19 +45,12 @@ export const compareCredentials = (
   user: auth.BasicAuthResult,
   requiredCredentials: AuthCredentials
 ): boolean => {
-  let valid = true
+  let valid = false
 
-  valid =
-    compare(
-      user.name,
-      requiredCredentials.find(item => item.name === user.name)?.name ?? ''
-    ) && valid
-  valid =
-    compare(
-      user.pass,
-      requiredCredentials.find(item => item.password === user.pass)?.password ??
-        ''
-    ) && valid
-
+  requiredCredentials.forEach(item => {
+    if (compare(item.name, user.name) && compare(item.password, user.pass)) {
+      valid = true
+    }
+  })
   return valid
 }

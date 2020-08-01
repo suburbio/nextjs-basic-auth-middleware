@@ -1,4 +1,4 @@
-import { parseCredentials, compareCredentials } from '../src/credentials'
+import { compareCredentials, parseCredentials } from '../src/credentials'
 
 describe('parseCredentials', () => {
   it('returns a single user', () => {
@@ -50,6 +50,12 @@ describe('compareCredentials', () => {
 
     expect(
       compareCredentials({ name: 'test', pass: 'secret' }, [
+        { name: 'test', password: 'test' },
+      ])
+    ).toBe(false)
+
+    expect(
+      compareCredentials({ name: 'test', pass: '' }, [
         { name: 'test', password: 'test' },
       ])
     ).toBe(false)
